@@ -31,9 +31,9 @@ export class HomeComponent extends Component<Props> {
         return (
             <div>
                 <div className="d-flex justify-content-center p-1 bg-success mb-2">
-                    <div className="border p-2 mr-1">Flex item</div>
-                    <div className="border p-2 mr-1">Flex item</div>
-                    <div className="border p-2">Flex item</div>
+                    <div className="border p-2 mr-1 transition1">Flex item</div>
+                    <div className="border p-2 mr-1 transition1">Flex item</div>
+                    <div className="border p-2 transition1">Flex item</div>
                 </div>
                 <div className="d-flex justify-content-between p-1 bg-success mb-2">
                     <div className="border p-2 mr-1">Flex item</div>

@@ -5,12 +5,23 @@ interface Props {
     formSubmit: Function;
 }
 
-export default class LoginComponent extends Component<Props, any> {
+interface State{
+    usernameprefix: string;
+    username: string;
+    password: string;
+}
+
+export default class LoginComponent extends Component<Props, State> {
     InputUsername: HTMLInputElement;
     InputPassword: HTMLInputElement;
 
-    constructor (props:any) {
+    constructor (props: Props) {
         super(props);
+        this.state = {
+            usernameprefix: 'RorWeb\\',
+            username: '',
+            password: ''
+        };
         this.onSubmit = this.onSubmit.bind(this);
     }
 

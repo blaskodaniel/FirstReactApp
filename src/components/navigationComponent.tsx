@@ -1,13 +1,20 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as React from 'react';
+import { AppProps } from '../interfaces/AppProps';
+import { connect } from 'react-redux';
+import { Reducers, Actions } from '@sensenet/redux';
 
-export default class NavigationComponent extends Component {
+export class NavigationComponent extends Component<AppProps,any> {
+    constructor(props: any) {
+        super(props);
+    }
     render() {
         return (
             <div>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <Link className="navbar-brand" to="/">FirstReact</Link>
+                    <Link className="navbar-brand" to="/">FirstReact {this.props.loginState} - {this.props.userName}</Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
@@ -30,3 +37,19 @@ export default class NavigationComponent extends Component {
         )
     }
 }
+
+// Amit kapunk a store-ból
+const mapStateToProps = (state: any, match: any) => {
+    return {
+      loginState: Reducers.getAuthenticationStatus(state.sensenet),
+      userName: state.sensenet.session.user.userName,
+    };
+};
+
+export default withRouter(connect(
+    mapStateToProps,
+    (dispatch) => ({
+      // Amit beküldünk a store-ba (mapDispatchToProps)
+      login: (username: string, password: string) => dispatch(Actions.userLogin(username, password)),
+    })
+  )(NavigationComponent as any));
